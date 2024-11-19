@@ -1,14 +1,20 @@
 const express = require('express');
+const postsArray = require('../data/posts.js');
 const router = express.Router();
 
 // Index
 router.get('/', function (req, res) {
     console.log('Lista dei post');
+    res.json(postsArray);
 });
 
 // Show
-router.get('/:id', function (req, res) {
-    console.log('post con id = ' + req.params.id);
+router.get('/:slug', function (req, res) {
+    const slug = req.params.slug;
+    console.log('post con slug = ' + slug);
+    const post = postsArray.find((el) => el.slug === slug);
+    console.log(post);
+    res.send(post);
 });
 
 // Store
@@ -17,17 +23,17 @@ router.post('/', function (req, res) {
 });
 
 // Update
-router.put('/:id', function (req, res) {
+router.put('/:slug', function (req, res) {
     console.log('Post modificato');
 });
 
 // Modify
-router.patch('/:id', function (req, res) {
+router.patch('/:slug', function (req, res) {
     console.log('Post modificato parzialmente');
 });
 
 // Destroy
-router.delete('/:id', function (req, res) {
+router.delete('/:slug', function (req, res) {
     console.log('Post eliminato');
 });
 
